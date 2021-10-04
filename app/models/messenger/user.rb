@@ -6,5 +6,8 @@ module Messenger
     self.table_name = 'users'
 
     devise :database_authenticatable, :registerable, :validatable
+
+    has_many :chat_members
+    has_many :chats, through: :chat_members
   end
 end
