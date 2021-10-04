@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 module Messenger
+  # Messenger model
   class User < ApplicationRecord
-    # Include default devise modules. Others available are:
-    # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-    devise :database_authenticatable, :registerable,
-           :recoverable, :rememberable, :validatable
+    self.table_name = 'users'
+
+    devise :database_authenticatable, :registerable, :validatable
   end
 end
