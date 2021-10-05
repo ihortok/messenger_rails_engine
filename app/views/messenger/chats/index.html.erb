@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<h2>Chats</h2>
+
+<% if @chats.any? %>
+  <ul>
+    <% @chats.each do |chat| %>
+      <li>
+        <%= link_to chat.users.last.email, chat_path(chat) %>
+      </li>
+    <% end %>
+  </ul>
+<% end %>
+
+<h2>Users</h2>
+
+<% if @users_without_chats.any? %>
+  <ul>
+    <% @users_without_chats.each do |user| %>
+      <li>
+        <%= button_to user.email, chats_path, params: { user_id: user.id } %>
+      </li>
+    <% end %>
+  </ul>
+<% end %>
