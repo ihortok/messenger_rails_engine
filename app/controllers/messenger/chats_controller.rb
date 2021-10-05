@@ -13,6 +13,8 @@ module Messenger
     end
 
     def show
+      @message = Message.new
+      @messages = @chat.messages
     end
 
     def create
