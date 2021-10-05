@@ -7,5 +7,7 @@ module Messenger
 
     has_many :chat_members
     has_many :chats, through: :chat_members
+
+    scope :all_except, ->(user) { where.not(id: user) }
   end
 end

@@ -5,5 +5,7 @@ module Messenger
   class Chat < ApplicationRecord
     has_many :chat_members
     has_many :users, through: :chat_members
+
+    scope :all_for, ->(user) { user.chats.includes(:users).where.not(users: { id: user.id }) }
   end
 end
