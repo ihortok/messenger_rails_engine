@@ -1,20 +1,19 @@
-<p id="notice"><%= notice %></p>
-
-<h2>Chats</h2>
+<h1>Chats</h1>
 
 <% if @chats.any? %>
   <ul>
     <% @chats.each do |chat| %>
       <li>
-        <%= link_to chat.users.last.email, chat_path(chat) %>
+        <%= link_to chat.users.last.email, chat_messages_path(chat) %>
       </li>
     <% end %>
   </ul>
+<% else %>
+  <p>You currently have no chats.</p>
 <% end %>
 
-<h2>Users</h2>
-
 <% if @users_without_chats.any? %>
+  <h2>You can start a chat with:</h2>
   <ul>
     <% @users_without_chats.each do |user| %>
       <li>
