@@ -14,8 +14,8 @@ module Messenger
       ActiveRecord::Base.transaction do
         @chat = Chat.create!
 
-        ChatMember.create!(chat: @chat, user: user_first)
-        ChatMember.create!(chat: @chat, user: user_second)
+        @chat.users << user_first
+        @chat.users << user_second
       end
     rescue StandardError => e
       OpenStruct.new({ success?: false, error: e })

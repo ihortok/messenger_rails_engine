@@ -10,18 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_05_011623) do
-
-  create_table "messenger_chat_members", force: :cascade do |t|
-    t.integer "chat_id"
-    t.integer "user_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
+ActiveRecord::Schema.define(version: 2021_11_16_210246) do
 
   create_table "messenger_chats", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "messenger_chats_users", id: false, force: :cascade do |t|
+    t.bigint "chat_id", null: false
+    t.bigint "user_id", null: false
+    t.index ["chat_id", "user_id"], name: "index_messenger_chats_users_on_chat_id_and_user_id", unique: true
   end
 
   create_table "messenger_messages", force: :cascade do |t|
