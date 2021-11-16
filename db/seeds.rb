@@ -12,7 +12,7 @@ Messenger::User.where(id: [test, jack, marco, katy]).each do |user|
   chats = user.chats
 
   Messenger::User.where(id: [test, jack, marco, katy]).where.not(id: user).each do |u|
-    next if chats.users.where(id: u).any?
+    next if chats.select { |chat| chat.users.where(id: u) }.any?
 
     chat = Messenger::Chat.create!
 
