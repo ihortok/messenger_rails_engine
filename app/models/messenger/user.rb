@@ -5,8 +5,7 @@ module Messenger
   class User < ApplicationRecord
     devise :database_authenticatable, :registerable, :validatable
 
-    has_many :chat_members
-    has_many :chats, through: :chat_members
+    has_and_belongs_to_many :chats
 
     scope :all_except, ->(user) { where.not(id: user) }
   end
