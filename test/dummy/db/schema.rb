@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_16_210246) do
+ActiveRecord::Schema.define(version: 2021_11_17_203444) do
 
   create_table "messenger_chats", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
@@ -36,6 +36,9 @@ ActiveRecord::Schema.define(version: 2021_11_16_210246) do
     t.string "encrypted_password", default: "", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "first_name"
+    t.string "last_name"
+    t.string "nickname"
     t.index ["email"], name: "index_messenger_users_on_email", unique: true
   end
 

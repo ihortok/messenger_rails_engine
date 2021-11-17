@@ -3,8 +3,13 @@
 <% if @chats.any? %>
   <ul>
     <% @chats.each do |chat| %>
+      <% user = chat.users.last %>
       <li>
-        <%= link_to chat.users.last.email, chat_messages_path(chat) %>
+        <%= link_to chat_messages_path(chat) do %>
+          <%= user.first_name + ' ' + user.last_name %> -
+          <%= user.nickname %> -
+          <%= user.email %>
+        <% end %>
       </li>
     <% end %>
   </ul>
