@@ -8,8 +8,7 @@ module Messenger
     before_action :set_user, only: :create
 
     def index
-      @chats = Chat.all_for(current_user)
-      @users_without_chats = User.all_except(current_user).where.not(id: @chats.map { |chat| chat.users.first.id })
+      @pagy, @chats = pagy(Chat.all_for(current_user), items: 10)
     end
 
     def create
