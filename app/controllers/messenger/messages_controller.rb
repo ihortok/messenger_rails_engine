@@ -9,7 +9,7 @@ module Messenger
     before_action :set_message, only: :index
 
     def index
-      @messages = @chat.messages
+      @pagy, @messages = pagy(@chat.messages.order(created_at: :desc), items: 10)
     end
 
     def create

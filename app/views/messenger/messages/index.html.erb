@@ -5,6 +5,12 @@
     <h3><%= receiver.email %></h3>
     <a href="" class="btn btn-green refresh">refresh</a>
   </header>
+  <%= form_with model: [@chat, @message] do |form| %>
+    <%= form.hidden_field :chat_id, value: @chat.id %>
+    <%= form.hidden_field :user_id, value: current_user.id %>
+    <%= form.text_area :content %>
+    <%= form.submit %>
+  <% end %>
   <div id="messages" class="messages">
     <ul>
       <% @messages.each do |message| %>
@@ -22,12 +28,5 @@
       <% end %>
     </ul>
   </div>
-  <footer>
-    <%= form_with model: [@chat, @message] do |form| %>
-      <%= form.hidden_field :chat_id, value: @chat.id %>
-      <%= form.hidden_field :user_id, value: current_user.id %>
-      <%= form.text_area :content %>
-      <%= form.submit %>
-    <% end %>
-  </footer>
+  <%== pagy_nav(@pagy) %>
 </div>
