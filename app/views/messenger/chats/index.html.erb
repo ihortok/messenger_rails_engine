@@ -11,14 +11,3 @@
 <% else %>
   <p>You currently have no chats.</p>
 <% end %>
-
-<% if @users_without_chats.any? %>
-  <h2>You can start a chat with:</h2>
-  <ul>
-    <% @users_without_chats.each do |user| %>
-      <li>
-        <%= button_to user.email, chats_path, params: { user_id: user.id } %>
-      </li>
-    <% end %>
-  </ul>
-<% end %>
