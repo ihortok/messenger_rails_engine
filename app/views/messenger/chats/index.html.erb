@@ -1,14 +1,18 @@
 <h1>Chats</h1>
 
-<% if @chats.any? %>
+<% if @users.any? %>
   <ul>
-    <% @chats.each do |chat| %>
-      <% user = chat.users.last %>
+    <% @users.each do |user| %>
       <li>
-        <%= link_to chat_messages_path(chat) do %>
-          <%= user.first_name + ' ' + user.last_name %> -
-          <%= user.nickname %> -
-          <%= user.email %>
+        <% chat = chart_for(user, current_user) %>
+        <% if chat %>
+          <%= link_to chat_messages_path(chat) do %>
+            <%= chat_link_content(user) %>
+          <% end %>
+        <% else %>
+          <%= button_to chats_path, params: { user_id: user.id } do %>
+            <%= chat_link_content(user) %>
+          <% end %>
         <% end %>
       </li>
     <% end %>
