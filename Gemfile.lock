@@ -5,7 +5,7 @@ PATH
       devise
       elasticsearch-model
       elasticsearch-persistence
-      elasticsearch-rails 
+      elasticsearch-rails
       faker
       pagy
       rails (~> 6.1.4)
