@@ -8,7 +8,12 @@ module Messenger
     before_action :set_user, only: :create
 
     def index
-      @pagy, @users = pagy(User.all_except(current_user), items: 10)
+      if params[:search].present?
+        @users = FindUsers.new(users).call(permitted_params)
+        @pagy = Pagy.new_from_elasticsearch_rails @users, items: 10
+      else
+        @pagy, @users = pagy(FindUsers.new(users).call, items: 10)
+      end
     end
 
     def create
@@ -22,6 +27,14 @@ module Messenger
     end
 
     private
+
+    def permitted_params
+      params.permit(:search)
+    end
+
+    def users
+      @users ||= User.all_except(current_user)
+    end
 
     def set_user
       @user = User.find(params[:user_id])

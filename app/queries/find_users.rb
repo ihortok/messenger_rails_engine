@@ -1,8 +1,8 @@
-class FindMessages
+class FindUsers
   attr_accessor :initial_scope
 
   def initialize(initial_scope)
-    @initial_scope = initial_scope.order(created_at: :desc)
+    @initial_scope = initial_scope
   end
 
   def call(params = {})
@@ -16,12 +16,7 @@ class FindMessages
               {
                 multi_match: {
                   query: params[:search],
-                  fields: [:content]
-                }
-              },
-              {
-                match: {
-                  chat_id: params[:chat_id].to_i
+                  fields: [:first_name, :last_name, :nickname, :email]
                 }
               }
             ]

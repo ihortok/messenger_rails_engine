@@ -1,10 +1,15 @@
 <h1>Chats</h1>
 
+<form>
+  <input name="search">
+  <input type="submit" value="search">
+</form>
+
 <% if @users.any? %>
   <ul>
     <% @users.each do |user| %>
       <li>
-        <% chat = chart_for(user, current_user) %>
+        <% chat = chart_for(Messenger::User.find(user.id), current_user) %>
         <% if chat %>
           <%= link_to chat_messages_path(chat) do %>
             <%= chat_link_content(user) %>

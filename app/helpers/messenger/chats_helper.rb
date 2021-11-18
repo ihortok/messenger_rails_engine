@@ -5,7 +5,7 @@ module Messenger
     end
 
     def chat_link_content(user)
-      "#{user.first_name} - #{user.last_name} - #{user.nickname} - <i>(#{user.email})</i>".html_safe
+      "#{user.first_name} #{user.last_name} - #{user.nickname} - <i>(#{user.email})</i>".html_safe
     end
   end
 end
