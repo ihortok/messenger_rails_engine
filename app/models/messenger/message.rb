@@ -9,6 +9,7 @@ module Messenger
     settings do
       mappings dynamic: false do
         indexes :id, type: :integer
+        indexes :chat_id, type: :integer
         indexes :content, type: :text
       end
     end

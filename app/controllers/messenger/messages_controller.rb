@@ -30,7 +30,7 @@ module Messenger
     private
 
     def permitted_params
-      params.permit(:search)
+      params.permit(:chat_id, :search)
     end
 
     def set_chat

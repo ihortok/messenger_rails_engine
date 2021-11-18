@@ -20,6 +20,11 @@ class FindMessages
                   query: params[:search],
                   fields: [:content]
                 }
+              },
+              {
+                match: {
+                  chat_id: params[:chat_id].to_i
+                }
               }
             ]
           }
