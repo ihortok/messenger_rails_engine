@@ -9,7 +9,7 @@ module Messenger
     before_action :set_message, only: :index
 
     def index
-      if params[:search]
+      if params[:search].present?
         @messages = FindMessages.new(@chat.messages).call(permitted_params)
         @pagy = Pagy.new_from_elasticsearch_rails @messages, items: 10
       else

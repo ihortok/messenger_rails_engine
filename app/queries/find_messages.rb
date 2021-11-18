@@ -6,7 +6,7 @@ class FindMessages
   end
 
   def call(params = {})
-    return initial_scope unless params[:search]
+    return initial_scope unless params[:search].present?
 
     query = params[:search].split
 
