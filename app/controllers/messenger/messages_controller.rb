@@ -9,11 +9,16 @@ module Messenger
     before_action :set_message, only: :index
 
     def index
-      @pagy, @messages = pagy(@chat.messages.order(created_at: :desc), items: 10)
+      if params[:search].present?
+        @messages = FindMessages.new(@chat.messages).call(permitted_params)
+        @pagy = Pagy.new_from_elasticsearch_rails @messages, items: 10
+      else
+        @pagy, @messages = pagy(FindMessages.new(@chat.messages).call, items: 10)
+      end
     end
 
     def create
-      @message = Messenger::Message.new(message_params)
+      @message = Message.new(message_params)
 
       if @message.save!
         redirect_to chat_messages_path(@chat)
@@ -23,6 +28,10 @@ module Messenger
     end
 
     private
+
+    def permitted_params
+      params.permit(:chat_id, :search)
+    end
 
     def set_chat
       @chat = Chat.find(params[:chat_id])

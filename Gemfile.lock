@@ -3,6 +3,10 @@ PATH
   specs:
     messenger (0.2.0)
       devise
+      elasticsearch-model
+      elasticsearch-persistence
+      elasticsearch-rails
+      faker
       pagy
       rails (~> 6.1.4)
 
@@ -78,9 +82,50 @@ GEM
       railties (>= 4.1.0)
       responders
       warden (~> 1.2.3)
+    elasticsearch (7.15.0)
+      elasticsearch-api (= 7.15.0)
+      elasticsearch-transport (= 7.15.0)
+    elasticsearch-api (7.15.0)
+      multi_json
+    elasticsearch-model (7.2.0)
+      activesupport (> 3)
+      elasticsearch (~> 7)
+      hashie
+    elasticsearch-persistence (7.2.0)
+      activemodel (> 4)
+      activesupport (> 4)
+      elasticsearch (~> 7)
+      elasticsearch-model (= 7.2.0)
+      hashie
+    elasticsearch-rails (7.2.0)
+    elasticsearch-transport (7.15.0)
+      faraday (~> 1)
+      multi_json
     erubi (1.10.0)
+    faker (2.19.0)
+      i18n (>= 1.6, < 2)
+    faraday (1.8.0)
+      faraday-em_http (~> 1.0)
+      faraday-em_synchrony (~> 1.0)
+      faraday-excon (~> 1.1)
+      faraday-httpclient (~> 1.0.1)
+      faraday-net_http (~> 1.0)
+      faraday-net_http_persistent (~> 1.1)
+      faraday-patron (~> 1.0)
+      faraday-rack (~> 1.0)
+      multipart-post (>= 1.2, < 3)
+      ruby2_keywords (>= 0.0.4)
+    faraday-em_http (1.0.0)
+    faraday-em_synchrony (1.0.0)
+    faraday-excon (1.1.0)
+    faraday-httpclient (1.0.1)
+    faraday-net_http (1.0.1)
+    faraday-net_http_persistent (1.2.0)
+    faraday-patron (1.0.0)
+    faraday-rack (1.0.0)
     globalid (0.5.2)
       activesupport (>= 5.0)
+    hashie (5.0.0)
     i18n (1.8.11)
       concurrent-ruby (~> 1.0)
     loofah (2.12.0)
@@ -92,6 +137,8 @@ GEM
     method_source (1.0.0)
     mini_mime (1.1.2)
     minitest (5.14.4)
+    multi_json (1.15.0)
+    multipart-post (2.1.1)
     nio4r (2.5.8)
     nokogiri (1.12.5-x86_64-darwin)
       racc (~> 1.4)
@@ -133,6 +180,7 @@ GEM
     responders (3.0.1)
       actionpack (>= 5.0)
       railties (>= 5.0)
+    ruby2_keywords (0.0.5)
     sprockets (4.0.2)
       concurrent-ruby (~> 1.0)
       rack (> 1, < 3)

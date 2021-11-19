@@ -1,27 +1,48 @@
+# frozen_string_literal: true
+
+require 'faker'
+
 test = Messenger::User.find_or_initialize_by(email: 'test@test.com')
-jack = Messenger::User.find_or_initialize_by(email: 'jack_london@mail.com')
-marco = Messenger::User.find_or_initialize_by(email: 'marco_polo@mail.com')
-katy = Messenger::User.find_or_initialize_by(email: 'katy_perry@mail.com')
 
-test.password = '123456abc@' and test.save! unless test.persisted?
-jack.password = '123456abc@' and jack.save! unless jack.persisted?
-marco.password = '123456abc@' and marco.save! unless marco.persisted?
-katy.password = '123456abc@' and katy.save! unless katy.persisted?
+unless test.persisted?
+  test.password = '123456abc@'
+  test.first_name = Faker::Name.first_name
+  test.last_name = Faker::Name.last_name
+  test.nickname = "#{Faker::Internet.username}-#{rand(9999)}"
 
-Messenger::User.where(id: [test, jack, marco, katy]).each do |user|
-  chats = user.chats
+  test.save!
+end
 
-  Messenger::User.where(id: [test, jack, marco, katy]).where.not(id: user).each do |u|
-    next if chats.select { |chat| chat.users.where(id: u) }.any?
+100.times do
+  loop do
+    email = Faker::Internet.email
 
-    chat = Messenger::Chat.create!
+    next if Messenger::User.find_by(email: email)
 
-    chat.users << user
-    chat.users << u
+    Messenger::User.create!(
+      email: email,
+      password: Faker::Internet.password,
+      first_name: Faker::Name.first_name,
+      last_name: Faker::Name.last_name,
+      nickname: "#{Faker::Internet.username}-#{rand(9999)}"
+    )
+
+    break
   end
 end
 
-Messenger::User.create!(email: 'test1@test.com', password: '123456abc@') unless Messenger::User.exists? email: 'test1@test.com'
-Messenger::User.create!(email: 'jack_london1@mail.com', password: '123456abc@') unless Messenger::User.exists? email: 'jack_london1@mail.com'
-Messenger::User.create!(email: 'marco_polo1@mail.com', password: '123456abc@') unless Messenger::User.exists? email: 'marco_polo1@mail.com'
-Messenger::User.create!(email: 'katy_perry1@mail.com', password: '123456abc@') unless Messenger::User.exists? email: 'katy_perry1@mail.com'
+Messenger::User.all.each do |user|
+  next if user == test
+
+  next if test.chats.joins(:users).where(users: { id: user.id }).any?
+
+  chat = Messenger::Chat.create!
+  chat.users << test
+  chat.users << user
+end
+
+chat = test.chats.sample
+
+3000.times do
+  chat.messages.create!(content: Faker::Lorem.paragraph, user: chat.users.sample)
+end
